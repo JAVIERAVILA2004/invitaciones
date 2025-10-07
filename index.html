@@ -31,7 +31,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
         }
 
         .invitation-container {
@@ -45,8 +45,8 @@
             background: var(--light-color);
             border-radius: 8px;
             box-shadow: var(--shadow);
-            padding: 30px;
-            margin-bottom: 30px;
+            padding: 20px;
+            margin-bottom: 20px;
             overflow: hidden;
             border: 1px solid rgba(46, 139, 87, 0.1);
         }
@@ -85,7 +85,7 @@
         .card-header {
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 40px 30px;
+            padding: 30px 20px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -104,7 +104,7 @@
 
         .company-name {
             font-family: 'Cinzel', serif;
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 15px;
             letter-spacing: 3px;
@@ -126,7 +126,7 @@
 
         .tagline {
             font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 400;
             max-width: 700px;
             margin: 0 auto;
@@ -141,7 +141,7 @@
         }
 
         .celebration-section {
-            padding: 40px 30px;
+            padding: 30px 20px;
             text-align: center;
             background-color: #fafafa;
             position: relative;
@@ -149,19 +149,39 @@
 
         .celebration-title {
             font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: var(--primary-color);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             position: relative;
             letter-spacing: 2px;
         }
 
+        .image-container {
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .anniversary-image {
+            max-width: 100%;
+            height: auto;
+            max-height: 180px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .anniversary-image:hover {
+            transform: scale(1.02);
+        }
+
         .anniversary-text {
             font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: var(--primary-color);
             font-weight: 700;
-            margin: 30px 0;
+            margin: 25px 0;
             position: relative;
             display: inline-block;
             letter-spacing: 3px;
@@ -173,29 +193,29 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--accent-color);
-            font-size: 1.8rem;
+            font-size: 1.6rem;
         }
 
         .anniversary-text::before {
-            left: -50px;
+            left: -45px;
         }
 
         .anniversary-text::after {
-            right: -50px;
+            right: -45px;
         }
 
         .details-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
-            margin: 40px 0;
+            margin: 30px 0;
         }
 
         .detail-card {
             flex: 1;
             min-width: 220px;
-            margin: 15px;
-            padding: 25px 20px;
+            margin: 12px;
+            padding: 20px 15px;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
@@ -229,29 +249,29 @@
         }
 
         .detail-icon {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--primary-color);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .detail-label {
             font-weight: 600;
             color: var(--primary-color);
-            margin-bottom: 10px;
-            font-size: 1rem;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
             letter-spacing: 1px;
         }
 
         .detail-value {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--text-color);
             font-weight: 500;
         }
 
         .message-section {
-            padding: 40px 30px;
+            padding: 30px 20px;
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             line-height: 1.8;
             background-color: white;
             position: relative;
@@ -260,7 +280,7 @@
 
         .message-section::before, .message-section::after {
             content: '"';
-            font-size: 5rem;
+            font-size: 4rem;
             color: var(--primary-color);
             position: absolute;
             opacity: 0.2;
@@ -268,17 +288,17 @@
         }
 
         .message-section::before {
-            top: 20px;
-            left: 30px;
+            top: 15px;
+            left: 20px;
         }
 
         .message-section::after {
-            bottom: 20px;
-            right: 30px;
+            bottom: 15px;
+            right: 20px;
         }
 
         .rsvp-section {
-            padding: 40px 30px;
+            padding: 30px 20px;
             text-align: center;
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
             color: white;
@@ -300,7 +320,7 @@
 
         .rsvp-title {
             font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             margin-bottom: 20px;
             letter-spacing: 2px;
         }
@@ -309,10 +329,10 @@
             display: inline-block;
             background-color: var(--accent-color);
             color: var(--primary-dark);
-            padding: 16px 45px;
+            padding: 14px 35px;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             text-decoration: none;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
@@ -351,12 +371,12 @@
         .countdown-container {
             display: flex;
             justify-content: center;
-            margin: 40px 0;
+            margin: 30px 0;
             flex-wrap: wrap;
         }
 
         .countdown-item {
-            margin: 0 12px;
+            margin: 0 10px;
             text-align: center;
             animation: pulse 2s infinite;
         }
@@ -368,7 +388,7 @@
         }
 
         .countdown-number {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 700;
             color: var(--primary-color);
             display: block;
@@ -377,18 +397,18 @@
         }
 
         .countdown-label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #7f8c8d;
             margin-top: 8px;
             letter-spacing: 1px;
         }
 
         .footer {
-            padding: 25px;
+            padding: 20px;
             text-align: center;
             background-color: var(--primary-dark);
             color: #ecf0f1;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             letter-spacing: 1px;
         }
 
@@ -404,8 +424,8 @@
 
         .floating-element {
             position: absolute;
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             background-color: rgba(46, 139, 87, 0.1);
             border-radius: 50%;
             animation: float 15s infinite linear;
@@ -449,28 +469,28 @@
 
         .ornament {
             position: absolute;
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             opacity: 0.05;
             z-index: 0;
         }
 
         .ornament-1 {
-            top: 20px;
-            left: 20px;
+            top: 15px;
+            left: 15px;
             background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
         }
 
         .ornament-2 {
-            bottom: 20px;
-            right: 20px;
+            bottom: 15px;
+            right: 15px;
             background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
         }
 
         .seal {
             position: absolute;
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             background: var(--accent-color);
             border-radius: 50%;
             display: flex;
@@ -479,12 +499,12 @@
             color: var(--primary-dark);
             font-family: 'Cinzel', serif;
             font-weight: bold;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-align: center;
             line-height: 1.2;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-            right: 30px;
-            top: 30px;
+            right: 20px;
+            top: 20px;
             z-index: 2;
             animation: rotate 20s linear infinite;
         }
@@ -494,33 +514,139 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Responsive adjustments */
         @media (max-width: 768px) {
-            .details-container {
-                flex-direction: column;
+            body {
+                padding: 10px;
+                align-items: flex-start;
             }
             
-            .detail-card {
-                min-width: 100%;
+            .envelope {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            
+            .card-header {
+                padding: 25px 15px;
             }
             
             .company-name {
-                font-size: 2.2rem;
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            .celebration-section {
+                padding: 25px 15px;
+            }
+            
+            .celebration-title {
+                font-size: 1.4rem;
             }
             
             .anniversary-text {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             .anniversary-text::before, .anniversary-text::after {
                 display: none;
             }
             
+            .anniversary-image {
+                max-height: 150px;
+            }
+            
+            .details-container {
+                flex-direction: column;
+                margin: 20px 0;
+            }
+            
+            .detail-card {
+                min-width: 100%;
+                margin: 8px 0;
+            }
+            
+            .message-section {
+                padding: 25px 15px;
+                font-size: 1rem;
+            }
+            
+            .message-section::before, .message-section::after {
+                font-size: 3rem;
+            }
+            
+            .message-section::before {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .message-section::after {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .rsvp-section {
+                padding: 25px 15px;
+            }
+            
+            .rsvp-title {
+                font-size: 1.4rem;
+            }
+            
+            .rsvp-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            .countdown-label {
+                font-size: 0.8rem;
+            }
+            
+            .footer {
+                padding: 15px;
+                font-size: 0.8rem;
+            }
+            
             .seal {
-                width: 60px;
-                height: 60px;
-                font-size: 0.7rem;
-                right: 20px;
-                top: 20px;
+                width: 55px;
+                height: 55px;
+                font-size: 0.65rem;
+                right: 15px;
+                top: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .company-name {
+                font-size: 1.7rem;
+            }
+            
+            .anniversary-text {
+                font-size: 1.5rem;
+            }
+            
+            .anniversary-image {
+                max-height: 120px;
+            }
+            
+            .countdown-number {
+                font-size: 1.7rem;
+            }
+            
+            .countdown-item {
+                margin: 0 5px;
+            }
+            
+            .seal {
+                width: 45px;
+                height: 45px;
+                font-size: 0.6rem;
             }
         }
     </style>
@@ -552,6 +678,11 @@
                 
                 <div class="celebration-section">
                     <h2 class="celebration-title">Celebración</h2>
+                    
+                    <div class="image-container">
+                        <img src="../Image-removebg-preview.png" alt="30 Aniversario Conversario" class="anniversary-image">
+                    </div>
+                    
                     <div class="anniversary-text">30 ANIVERSARIO</div>
                     
                     <div class="details-container">
@@ -560,7 +691,7 @@
                                 <i class="far fa-calendar-alt"></i>
                             </div>
                             <div class="detail-label">FECHA</div>
-                            <div class="detail-value">21 DE NOVIEMBRE 2023</div>
+                            <div class="detail-value">21 DE NOVIEMBRE 2025</div>
                         </div>
                         <div class="detail-card">
                             <div class="detail-icon">
@@ -589,11 +720,11 @@
                 
                 <div class="rsvp-section">
                     <h2 class="rsvp-title">CONFIRMAR ASISTENCIA</h2>
-                    <a href="https://forms.gle/1Gwqwy5otttd6buc7" class="rsvp-button" id="rsvpButton">CONFIRMAR ASISTENCIA</a>
+                    <a href="https://forms.gle/1Gwqwy5otttd6buc7" class="rsvp-button" id="rsvpButton" target="_blank">CONFIRMAR ASISTENCIA</a>
                 </div>
                 
                 <div class="footer">
-                    <p>© 2023 CONVERSARIO - 30 AÑOS CONSTRUYENDO FUTURO</p>
+                    <p>© 2025 CONVERSARIO - 30 AÑOS CONSTRUYENDO FUTURO</p>
                 </div>
             </div>
         </div>
@@ -602,7 +733,7 @@
     <script>
         // Countdown timer
         function updateCountdown() {
-            const eventDate = new Date('november 21, 2025 14:30:00').getTime();
+            const eventDate = new Date('November 21, 2025 14:30:00').getTime();
             const now = new Date().getTime();
             const timeLeft = eventDate - now;
             
@@ -639,8 +770,6 @@
         // Initialize countdown
         updateCountdown();
         setInterval(updateCountdown, 1000);
-        
-        // RSVP button functionality
         
         // Add scroll animations
         const observerOptions = {
