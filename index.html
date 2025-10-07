@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar nombre por parámetro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #007A3D;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Bienvenido</h1>
+        <p id="nombre"></p>
+    </div>
+    <iframe 
+        src="https://www.canva.com/design/DAG0vcI3qHw/ba325-1KlFujFhs_Y4WpZA/view" 
+        width="800" 
+        height="500" 
+        style="border:1px solid #ccc; border-radius:8px;">
+    </iframe>
+    <script>
+        // Obtener los parámetros de la URL
+        const params = new URLSearchParams(window.location.search);
+
+        // Leer el parámetro "name"
+        const name = params.get("name");
+
+        // Mostrar en el DOM
+        const nombreElemento = document.getElementById("nombre");
+        if (name) {
+            nombreElemento.textContent = `Hola, ${decodeURIComponent(name)} 👋`;
+        } else {
+            nombreElemento.textContent = "No se proporcionó un nombre.";
+        }
+    </script>
+
+</body>
+</html>
