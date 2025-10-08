@@ -1,5 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name"); // Lee ?name=...
+
+    const textElement = document.getElementById("anniversaryText");
+    if (name && textElement) {
+        textElement.textContent = name.toUpperCase(); // Reemplaza el texto
+    }
     // --- CONTADOR ---
     function updateCountdown() {
         const eventDate = new Date('November 21, 2025 14:30:00').getTime();
