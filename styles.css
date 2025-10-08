@@ -1,4 +1,5 @@
- * {
+
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -190,6 +191,20 @@
                 -1px -1px 2px rgba(0, 0, 0, 0.2);
             animation: titleGlow 3s ease-in-out infinite;
         }
+        .anniversary-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+    transition: transform 0.5s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.image-container:hover .anniversary-image {
+    transform: scale(1.05);
+}
 
         @keyframes titleGlow {
             0%, 100% {
@@ -348,53 +363,6 @@
             letter-spacing: 4px;
             margin: 30px 0;
             text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
-            animation: textPulse 3s ease-in-out infinite;
-            position: relative;
-        }
-
-        .anniversary-text::before,
-        .anniversary-text::after {
-            content: '✦';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #8b7355;
-            font-size: 20px;
-            opacity: 0;
-            animation: starFade 3s ease-in-out infinite;
-        }
-
-        .anniversary-text::before {
-            left: -40px;
-        }
-
-        .anniversary-text::after {
-            right: -40px;
-            animation-delay: 1.5s;
-        }
-
-        @keyframes textPulse {
-            0%, 100% {
-                transform: scale(1);
-                text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
-            }
-            50% {
-                transform: scale(1.05);
-                text-shadow: 
-                    2px 2px 8px rgba(255, 255, 255, 0.7),
-                    0 0 20px rgba(139, 115, 85, 0.4);
-            }
-        }
-
-        @keyframes starFade {
-            0%, 100% {
-                opacity: 0;
-                transform: translateY(-50%) scale(0.5);
-            }
-            50% {
-                opacity: 1;
-                transform: translateY(-50%) scale(1);
-            }
         }
 
         /* Tarjetas de detalles */
@@ -413,52 +381,20 @@
                 0 5px 15px rgba(0, 0, 0, 0.2),
                 inset 0 1px 2px rgba(255, 255, 255, 0.3);
             border: 2px solid rgba(139, 115, 85, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .detail-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transition: left 0.5s;
-        }
-
-        .detail-card:hover::before {
-            left: 100%;
+            transition: all 0.3s ease;
         }
 
         .detail-card:hover {
-            transform: translateY(-10px) scale(1.03);
+            transform: translateY(-5px);
             box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.3),
-                inset 0 1px 2px rgba(255, 255, 255, 0.4),
-                0 0 30px rgba(139, 115, 85, 0.2);
-            border-color: rgba(139, 115, 85, 0.6);
+                0 10px 25px rgba(0, 0, 0, 0.3),
+                inset 0 1px 2px rgba(255, 255, 255, 0.3);
         }
 
         .detail-icon {
             font-size: 32px;
             color: #8b7355;
             margin-bottom: 15px;
-            transition: all 0.4s ease;
-            display: inline-block;
-        }
-
-        .detail-card:hover .detail-icon {
-            transform: scale(1.2) rotateY(360deg);
-            color: #6d5d4b;
-            filter: drop-shadow(0 0 10px rgba(139, 115, 85, 0.5));
         }
 
         .detail-label {
@@ -476,6 +412,17 @@
             font-weight: 500;
             color: #4a3f35;
             line-height: 1.4;
+        }
+
+        .detail-value a {
+            color: #4a3f35;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .detail-value a:hover {
+            color: #8b7355;
+            text-decoration: underline;
         }
 
         /* Contador regresivo */
@@ -496,58 +443,6 @@
                 0 5px 15px rgba(0, 0, 0, 0.3),
                 inset 0 1px 2px rgba(255, 255, 255, 0.2);
             border: 2px solid #6d5d4b;
-            animation: countFloat 3s ease-in-out infinite;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .countdown-item::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(
-                circle,
-                rgba(255, 255, 255, 0.1) 0%,
-                transparent 70%
-            );
-            animation: rotateGlow 4s linear infinite;
-        }
-
-        @keyframes countFloat {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-5px);
-            }
-        }
-
-        @keyframes rotateGlow {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .countdown-item:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .countdown-item:nth-child(2) {
-            animation-delay: 0.3s;
-        }
-
-        .countdown-item:nth-child(3) {
-            animation-delay: 0.6s;
-        }
-
-        .countdown-item:nth-child(4) {
-            animation-delay: 0.9s;
         }
 
         .countdown-number {
@@ -557,18 +452,6 @@
             font-weight: 700;
             color: #f5f0e8;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-            position: relative;
-            z-index: 1;
-            animation: numberPulse 1s ease-in-out infinite;
-        }
-
-        @keyframes numberPulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
         }
 
         .countdown-label {
