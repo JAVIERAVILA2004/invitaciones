@@ -10,7 +10,21 @@
 </head>
 <body>
     <div class="invitation-container">
-        <div class="envelope">
+        <div class="envelope" id="envelope">
+            <!-- Carta sellada -->
+            <div class="sealed-letter">
+                <div class="envelope-flap"></div>
+                <div class="seal-stamp" id="sealStamp">
+                    <div class="seal-text">HACER CLIC<br>PARA ABRIR<br>30 AÑOS</div>
+                </div>
+                <div class="envelope-text">
+                    <h1>CONVERSARIO</h1>
+                    <p>30 años construyendo futuro</p>
+                    <p>Haz clic en el sello para abrir la carta</p>
+                </div>
+            </div>
+
+            <!-- Carta abierta -->
             <div class="invitation-card">
                 <div class="floating-elements">
                     <div class="floating-element"></div>
@@ -64,7 +78,9 @@
                     </div>
 
                     <!-- Contador regresivo -->
-                     <div class="countdown-container" id="countdown"></div>
+                     <div class="countdown-container" id="countdown">
+                       
+                    </div>
                 </div>
 
                 <div class="message-section">
@@ -79,9 +95,16 @@
                 <div class="footer">
                     <p>© 2025 CONVERSARIO - 30 AÑOS CONSTRUYENDO FUTURO</p>
                 </div>
+                <br/>
+                <button class="close-button" id="closeButton">Cerrar Carta</button>
             </div>
         </div>
     </div>
+
+    <div class="instruccion">
+        Haz clic en el sello para abrir la carta
+    </div>
+
     <script src="scripts.js"></script>
 </body>
 </html>

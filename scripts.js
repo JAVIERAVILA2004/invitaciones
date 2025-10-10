@@ -1,5 +1,110 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+    const envelope = document.getElementById('envelope');
+    const sealStamp = document.getElementById('sealStamp');
+    const closeButton = document.getElementById('closeButton');
+    const body = document.body;
+
+    // Estado inicial - asegurar que la carta esté cerrada
+    function estadoInicial() {
+        envelope.classList.remove('abierta');
+        body.classList.remove('con-scroll');
+        
+        // Forzar scroll al inicio
+        window.scrollTo(0, 0);
+        
+        // Asegurar que el body esté visible
+        body.style.visibility = 'visible';
+    }
+
+    // Función para abrir la carta
+    function abrirCarta() {
+        // Asegurar que el body tenga scroll habilitado
+        body.classList.add('con-scroll');
+        
+        // Pequeño delay para asegurar que el scroll esté habilitado
+        setTimeout(() => {
+            envelope.classList.add('abierta');
+            
+            // Desplazar suavemente al inicio
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }, 50);
+    }
+
+    // Función para cerrar la carta
+    function cerrarCarta() {
+        envelope.classList.remove('abierta');
+        
+        // Pequeño delay antes de quitar el scroll
+        setTimeout(() => {
+            body.classList.remove('con-scroll');
+            
+            // Asegurar que volvamos al inicio
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }, 400);
+    }
+
+    // Event Listeners
+    sealStamp.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        abrirCarta();
+    });
+
+    closeButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        cerrarCarta();
+    });
+
+    // Cerrar la carta al hacer clic fuera del contenido
+    document.addEventListener('click', function(e) {
+        if (envelope.classList.contains('abierta') && 
+            !e.target.closest('.invitation-card') && 
+            !e.target.closest('.seal-stamp') &&
+            !e.target.closest('.close-button')) {
+            e.preventDefault();
+            cerrarCarta();
+        }
+    });
+
+    // Prevenir comportamientos no deseados
+    document.addEventListener('touchmove', function(e) {
+        if (!body.classList.contains('con-scroll')) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    // Manejar el evento de beforeunload para limpiar estado
+    window.addEventListener('beforeunload', function() {
+        // Limpiar cualquier estado que pueda causar problemas al recargar
+        sessionStorage.removeItem('cartaAbierta');
+    });
+
+    // Manejar carga de la página
+    window.addEventListener('load', function() {
+        estadoInicial();
+        
+        // Pequeño delay para asegurar que todo esté cargado
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+        }, 100);
+    });
+
+    // Manejar cambios de visibilidad de la página
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+            // Cuando la página vuelve a ser visible, asegurar estado correcto
+            estadoInicial();
+        }
+    });
+
+
 
     const params = new URLSearchParams(window.location.search);
     const name = params.get("name"); // Lee ?name=...
