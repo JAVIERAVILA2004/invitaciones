@@ -1,9 +1,36 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+
+
     const envelope = document.getElementById('envelope');
     const sealStamp = document.getElementById('sealStamp');
     const closeButton = document.getElementById('closeButton');
     const body = document.body;
+
+
+// En tu script.js, agrega esto al inicio
+function configurarViewportMovil() {
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport && window.innerWidth <= 768) {
+        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+    }
+}
+
+// Llama a esta función al cargar
+document.addEventListener('DOMContentLoaded', function() {
+    configurarViewportMovil();
+    
+    // Tu código existente...
+});
+
+// También maneja el cambio de orientación
+window.addEventListener('orientationchange', function() {
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+        configurarViewportMovil();
+    }, 100);
+});
+
 
     // Estado inicial - asegurar que la carta esté cerrada
     function estadoInicial() {
