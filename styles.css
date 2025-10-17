@@ -1,786 +1,655 @@
+/* RESET Y CONFIGURACIÓN BASE */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+:root {
+    --primary: #004D27;
+    --secondary: #006937;
+    --accent: #008C45;
+    --light: #0A2A1A;
+    --gold: #5D8C3E;
+    --dark: #001F0F;
+    --text-light: #E8F5E9;
+    --text-dark: #0A2A1A;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background: linear-gradient(135deg, #001F0F 0%, #004D27 30%, #006937 70%, #008C45 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 15px;
     overflow-x: hidden;
-    overflow-y: hidden;
-}
-
-body.con-scroll {
-    overflow-y: auto;
-}
-
-.invitation-container {
-    max-width: 900px;
-    width: 100%;
-    perspective: 1500px;
-}
-
-/* Contenedor de la carta sellada */
-.envelope {
-    position: relative;
-    transform-style: preserve-3d;
-    animation: envelopeAppear 1.5s ease-out forwards;
-    transform-origin: center;
-    cursor: pointer;
-    height: 600px;
-}
-
-@keyframes envelopeAppear {
-    0% {
-        opacity: 0;
-        transform: translateY(50px) rotateX(10deg);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) rotateX(0);
-    }
-}
-
-/* Carta cerrada - Sobre sellado */
-.sealed-letter {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #d4c4b0 0%, #c9b896 50%, #d4c4b0 100%);
-    border-radius: 15px;
-    box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.4),
-        inset 0 2px 4px rgba(255, 255, 255, 0.2),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
-    border: 4px solid #8b7355;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    transition: all 0.8s ease;
-}
-
-.envelope.abierta .sealed-letter {
-    transform: scale(0.95);
-    opacity: 0;
-    pointer-events: none;
-}
-
-/* Solapa del sobre */
-.envelope-flap {
-    position: absolute;
-    top: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 85%;
-    height: 80px;
-    background: linear-gradient(to bottom, #e8ddd0, #d4c4b0);
-    clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
-    border: 3px solid #8b7355;
-    border-bottom: none;
-    border-radius: 10px 10px 0 0;
-    transition: all 0.8s ease 0.3s;
-    z-index: 2;
-    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.envelope.abierta .envelope-flap {
-    transform: translateX(-50%) rotateX(-120deg);
-    top: -100px;
-    opacity: 0.7;
-}
-
-/* Sello interactivo */
-.seal-stamp {
-    position: absolute;
-    width: 140px;
-    height: 140px;
-    background: linear-gradient(135deg, #8b7355 0%, #a0856a 50%, #8b7355 100%);
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #f5f0e8;
-    font-family: 'Cinzel', serif;
-    font-size: 16px;
-    text-align: center;
-    transition: all 0.4s ease;
-    box-shadow: 
-        0 8px 25px rgba(0, 0, 0, 0.4),
-        inset 0 2px 4px rgba(255, 255, 255, 0.3),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
-    top: 50%;
-    right: 80px;
-    border: 3px solid #6d5d4b;
-    animation: sealFloat 4s infinite ease-in-out;
-    transform-origin: center;
-    z-index: 10;
-}
-
-.seal-stamp:hover {
-    transform: scale(1.15);
-    box-shadow: 
-        0 12px 30px rgba(0, 0, 0, 0.5),
-        inset 0 2px 4px rgba(255, 255, 255, 0.4),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
-}
-
-@keyframes sealFloat {
-    0%, 100% {
-        transform: translateY(0) rotate(-5deg);
-    }
-    50% {
-        transform: translateY(-15px) rotate(5deg);
-    }
-}
-
-.seal-text {
-    pointer-events: none;
-    line-height: 1.2;
-    font-size: 18px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.envelope.abierta .seal-stamp {
-    animation: sealBreak 0.8s ease-out forwards;
-}
-
-@keyframes sealBreak {
-    0% {
-        transform: scale(1) rotate(0deg);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(1.3) rotate(10deg);
-        opacity: 0.8;
-    }
-    100% {
-        transform: scale(0) rotate(45deg);
-        opacity: 0;
-    }
-}
-
-/* Texto en el sobre cerrado */
-.envelope-text {
-    text-align: center;
-    color: #4a3f35;
-    z-index: 1;
-    padding: 0 20px;
-}
-
-.envelope-text h1 {
-    font-family: 'Cinzel', serif;
-    font-size: 42px;
-    margin-bottom: 20px;
-    letter-spacing: 4px;
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
-}
-
-.envelope-text p {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-style: italic;
-    max-width: 500px;
-    margin: 0 auto;
+    color: var(--text-light);
     line-height: 1.6;
 }
 
-/* Carta abierta */
-.invitation-card {
-    background: linear-gradient(to bottom, #f5f0e8 0%, #e8ddd0 50%, #d4c4b0 100%);
-    border-radius: 20px;
-    padding: 60px 40px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
-    min-height: 600px;
-    box-shadow: 
-        0 30px 60px rgba(0, 0, 0, 0.5),
-        inset 0 2px 4px rgba(255, 255, 255, 0.3),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.1);
-    border: 3px solid #c9b896;
-    overflow: hidden;
-    opacity: 0;
-    transform: scale(0.9) translateY(20px);
-    transition: all 0.8s ease 0.5s;
-    pointer-events: none;
-}
-
-.envelope.abierta .invitation-card {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-    pointer-events: all;
-}
-
-/* Elementos flotantes decorativos */
-.floating-elements {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-.floating-element {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    background: radial-gradient(circle, rgba(201, 184, 150, 0.1) 0%, transparent 70%);
-    border-radius: 50%;
-    animation: float 15s infinite ease-in-out;
-}
-
-.floating-element:nth-child(1) {
-    top: 10%;
-    left: 10%;
-    animation-delay: 2s;
-}
-
-.floating-element:nth-child(2) {
-    top: 60%;
-    right: 10%;
-    animation-delay: 5s;
-}
-
-.floating-element:nth-child(3) {
-    bottom: 20%;
-    left: 15%;
-    animation-delay: 8s;
-}
-
-.floating-element:nth-child(4) {
-    top: 30%;
-    right: 20%;
-    animation-delay: 11s;
+/* ANIMACIONES GLOBALES */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes float {
     0%, 100% {
-        transform: translateY(0) translateX(0);
-    }
-    25% {
-        transform: translateY(-20px) translateX(10px);
+        transform: translateY(0);
     }
     50% {
-        transform: translateY(-10px) translateX(-10px);
-    }
-    75% {
-        transform: translateY(-15px) translateX(5px);
+        transform: translateY(-10px);
     }
 }
 
-/* Ornamentos en las esquinas */
-.ornament {
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1); 
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+    50% { 
+        transform: scale(1.05); 
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+    }
+}
+
+@keyframes cardOpen {
+    0% { 
+        opacity: 0; 
+        transform: scale(0.8) rotateX(10deg); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: scale(1) rotateX(0); 
+    }
+}
+
+@keyframes linePulse {
+    0%, 100% { width: 200px; opacity: 0.7; }
+    50% { width: 200px; opacity: 1; }
+}
+
+@keyframes expandWidth {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* CONTENEDOR PRINCIPAL */
+.invitation-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    animation: fadeInUp 0.8s ease;
+}
+
+/* ========== CARTA CERRADA - ESTRUCTURA OPTIMIZADA ========== */
+
+/* CONTENEDOR PRINCIPAL DE CARTA CERRADA */
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    cursor: pointer;
+    margin: 0 auto;
+    animation: float 6s ease-in-out infinite;
+}
+
+.sealed-letter {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #619e80c5 0%, #2D4D3A 50%, #3A5C45 100%);
+    border-radius: 12px;
+    border: 3px solid var(--gold);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    overflow: hidden;
+}
+
+/* FONDO Y EFECTOS VISUALES */
+.sealed-letter::before {
+    content: '';
     position: absolute;
-    width: 150px;
-    height: 150px;
-    background-image: 
-        radial-gradient(circle at 30% 30%, rgba(139, 115, 85, 0.3) 2px, transparent 2px),
-        radial-gradient(circle at 70% 30%, rgba(139, 115, 85, 0.3) 2px, transparent 2px),
-        radial-gradient(circle at 50% 50%, rgba(139, 115, 85, 0.2) 3px, transparent 3px);
-    background-size: 30px 30px, 30px 30px, 40px 40px;
-    opacity: 0.4;
-}
-
-.ornament-1 {
     top: 0;
     left: 0;
-    border-radius: 0 0 100% 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('.vscode/No2.jpeg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.55;
+    z-index: 0;
+    filter: sepia(0.4) brightness(0.7) contrast(1.1);
 }
 
-.ornament-2 {
-    bottom: 0;
-    right: 0;
-    border-radius: 100% 0 0 0;
-}
-
-/* Sello en la carta abierta */
-.seal {
+.sealed-letter::after {
+    content: '';
     position: absolute;
-    top: 30px;
-    right: 40px;
-    width: 100px;
-    height: 100px;
-    background: linear-gradient(135deg, #8b7355 0%, #a0856a 50%, #8b7355 100%);
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: shimmer 3s infinite;
+}
+
+/* SELLO INTERACTIVO - ELEMENTO PRINCIPAL */
+.seal-stamp {
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle at 30% 30%, var(--gold) 0%, var(--secondary) 50%, var(--primary) 100%);
     border-radius: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #f5f0e8;
-    font-family: 'Cinzel', serif;
-    font-size: 28px;
+    color: var(--text-light);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
     font-weight: 700;
-    line-height: 1.1;
-    box-shadow: 
-        0 5px 15px rgba(0, 0, 0, 0.4),
-        inset 0 2px 4px rgba(255, 255, 255, 0.3),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
-    border: 3px solid #6d5d4b;
-    animation: sealRotate 20s linear infinite 2s;
-    z-index: 10;
-    opacity: 0;
-    transform: scale(0);
-    animation: sealAppear 1s ease-out 1.5s forwards, sealRotate 20s linear infinite 2s;
+    text-align: center;
+    margin: 10px auto 20px auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    border: 3px solid var(--gold);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+    position: relative;
+    z-index: 2;
+    order: 1;
 }
 
-@keyframes sealAppear {
-    0% {
-        opacity: 0;
-        transform: scale(0) rotate(180deg);
-    }
-    70% {
-        opacity: 1;
-        transform: scale(1.2) rotate(-10deg);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) rotate(0deg);
-    }
+.seal-stamp:hover {
+    transform: scale(1.1);
+    animation: none;
 }
 
-@keyframes sealRotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.seal-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+    animation: float 3s ease-in-out infinite;
 }
 
-/* Encabezado */
+.seal-text {
+    line-height: 1.3;
+    font-size: 16px;
+}
+
+/* ENCABEZADO PRINCIPAL */
+.envelope-text {
+    position: relative;
+    z-index: 2;
+    margin: 0 auto 15px auto;
+    order: 2;
+}
+
+.envelope-text h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 8px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    line-height: 1.2;
+    animation: fadeInUp 1s ease 0.2s both;
+}
+
+.envelope-text .subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: fadeInUp 1s ease 0.4s both;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* CASILLA DE INFORMACIÓN - REORGANIZADA */
+.text-box {
+    background: rgba(26, 59, 42, 0.8);
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    padding: 20px 15px;
+    margin: 15px auto;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 2;
+    animation: fadeInUp 1s ease 0.8s both;
+    order: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+/* LOGO EN CASILLA - OPTIMIZADO */
+.text-box .company-logo {
+    max-width: 350px;
+    height: auto;
+    margin: 0 auto 10px auto;
+    display: block;
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));
+    position: relative;
+    z-index: 2;
+}
+
+/* TEXTO DENTRO DE LA CASILLA */
+.text-box p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 0;
+    text-align: center;
+    color: var(--text-light);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.text-box p:first-of-type {
+    font-weight: 600;
+    color: var(--gold);
+}
+
+.text-box p:last-of-type {
+    font-style: italic;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* ========== CARTA ABIERTA ========== */
+.invitation-card {
+    background: linear-gradient(135deg, #1A3B2A 0%, #2D4D3A 50%, #3A5C45 100%);
+    border-radius: 15px;
+    padding: 40px 25px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+    border: 3px solid var(--gold);
+    color: var(--text-light);
+    display: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.invitation-card.active {
+    display: block;
+    animation: cardOpen 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* CINTA ELEGANTE PARA EL LOGO */
+.ribbon-container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto 40px;
+    display: flex;
+    justify-content: center;
+    animation: fadeInUp 0.8s ease 0.3s both;
+}
+
+.ribbon {
+    position: relative;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--secondary) 50%, var(--primary) 100%);
+    padding: 25px 60px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform: rotate(-2deg);
+    z-index: 2;
+}
+
+.ribbon::before, .ribbon::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    z-index: -1;
+}
+
+.ribbon::before {
+    left: -15px;
+    transform: rotate(45deg);
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.ribbon::after {
+    right: -15px;
+    transform: rotate(45deg);
+    box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.ribbon-logo {
+    max-width: 700px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));
+}
+
+/* ENCABEZADO */
 .card-header {
     text-align: center;
-    margin-bottom: 30px;
-    position: relative;
-    z-index: 5;
+    margin-bottom: 40px;
+    animation: fadeInUp 0.8s ease 0.5s both;
 }
 
 .company-name {
-    font-family: 'Cinzel', serif;
-    font-size: 48px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
     font-weight: 700;
-    color: #4a3f35;
-    letter-spacing: 8px;
+    background: linear-gradient(45deg, var(--text-light), var(--gold), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     margin-bottom: 15px;
-    text-shadow: 
-        2px 2px 4px rgba(255, 255, 255, 0.5),
-        -1px -1px 2px rgba(0, 0, 0, 0.2);
-    animation: titleGlow 3s ease-in-out infinite 2.5s;
+    line-height: 1.1;
+    position: relative;
 }
 
-@keyframes titleGlow {
-    0%, 100% {
-        text-shadow: 
-            2px 2px 4px rgba(255, 255, 255, 0.5),
-            -1px -1px 2px rgba(0, 0, 0, 0.2);
-    }
-    50% {
-        text-shadow: 
-            2px 2px 8px rgba(255, 255, 255, 0.7),
-            -1px -1px 3px rgba(0, 0, 0, 0.3),
-            0 0 15px rgba(139, 115, 85, 0.3);
-    }
+.company-name::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    animation: linePulse 3s infinite;
 }
 
 .tagline {
     font-family: 'Playfair Display', serif;
-    font-size: 16px;
+    font-size: 1.2rem;
     font-style: italic;
-    color: #6d5d4b;
-    line-height: 1.6;
     max-width: 600px;
     margin: 0 auto;
+    font-weight: 600;
+    animation: fadeInUp 0.8s ease 0.7s both;
 }
 
-/* Divisor */
+/* DIVISOR */
 .divider {
-    height: 2px;
-    background: linear-gradient(to right, transparent, #8b7355 20%, #8b7355 80%, transparent);
-    margin: 30px 0;
-    position: relative;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+    margin: 50px 0;
+    animation: expandWidth 1s ease 0.9s both;
 }
 
-.divider::before,
-.divider::after {
-    content: '❖';
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #8b7355;
-    font-size: 20px;
-}
-
-.divider::before {
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* Sección de celebración */
+/* SECCIÓN DE CELEBRACIÓN */
 .celebration-section {
     text-align: center;
-    margin: 40px 0;
-    position: relative;
-    z-index: 5;
+    margin: 30px 0;
 }
 
 .celebration-title {
     font-family: 'Playfair Display', serif;
-    font-size: 42px;
-    color: #4a3f35;
+    font-size: 2.2rem;
     font-style: italic;
     margin-bottom: 30px;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+    font-weight: 600;
+    background: linear-gradient(45deg, var(--text-light), var(--gold), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: fadeInUp 0.8s ease 1.1s both;
 }
 
-/* Contenedor de imagen con marco */
 .image-container {
     max-width: 500px;
     margin: 0 auto 30px;
-    padding: 20px;
-    background: linear-gradient(135deg, #c9b896 0%, #a89878 100%);
-    border-radius: 15px;
-    box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.3),
-        inset 0 2px 4px rgba(255, 255, 255, 0.3),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.2);
-    border: 3px solid #8b7355;
-    position: relative;
-    overflow: hidden;
-    animation: frameGlow 4s ease-in-out infinite 2.5s;
+    padding: 15px;
+    background: linear-gradient(135deg, #1A3B2A 0%, #2D4D3A 50%, #3A5C45 100%);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--gold);
+    animation: fadeInUp 1s ease 1.3s both;
+    transition: transform 0.3s ease;
 }
 
-@keyframes frameGlow {
-    0%, 100% {
-        box-shadow: 
-            0 10px 30px rgba(0, 0, 0, 0.3),
-            inset 0 2px 4px rgba(255, 255, 255, 0.3),
-            inset 0 -2px 4px rgba(0, 0, 0, 0.2);
-    }
-    50% {
-        box-shadow: 
-            0 15px 40px rgba(139, 115, 85, 0.4),
-            inset 0 2px 4px rgba(255, 255, 255, 0.4),
-            inset 0 -2px 4px rgba(0, 0, 0, 0.2),
-            0 0 30px rgba(139, 115, 85, 0.3);
-    }
-}
-
-.image-container::before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 10px;
-    pointer-events: none;
+.image-container:hover {
+    transform: translateY(-5px);
 }
 
 .anniversary-image {
     width: 100%;
     height: auto;
+    border-radius: 8px;
     display: block;
-    border-radius: 10px;
-    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
     transition: transform 0.5s ease;
-    position: relative;
-    z-index: 1;
 }
 
 .image-container:hover .anniversary-image {
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .anniversary-text {
-    font-family: 'Cinzel', serif;
-    font-size: 32px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
     font-weight: 700;
-    color: #4a3f35;
-    letter-spacing: 4px;
+    background: linear-gradient(45deg, var(--text-light), var(--gold), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     margin: 30px 0;
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+    letter-spacing: 2px;
+    animation: fadeInUp 0.8s ease 1.5s both;
 }
 
-/* Tarjetas de detalles */
-/* Tarjetas de detalles - ESTILOS CORREGIDOS Y VISIBLES */
+/* DETALLES DEL EVENTO */
 .details-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
     margin: 40px 0;
-    width: 100%;
-    max-width: 900px;
-    opacity: 1 !important;
-    visibility: visible !important;
 }
 
 .detail-card {
-    background: linear-gradient(135deg, rgba(201, 184, 150, 0.8) 0%, rgba(168, 152, 120, 0.8) 100%);
-    padding: 30px 25px;
-    border-radius: 15px;
-    box-shadow: 
-        0 8px 25px rgba(0, 0, 0, 0.2),
-        inset 0 1px 3px rgba(255, 255, 255, 0.5);
-    border: 2px solid #8b7355;
-    transition: all 0.4s ease;
+    background: linear-gradient(135deg, rgba(26, 59, 42, 0.9) 0%, rgba(45, 77, 58, 0.9) 100%);
+    padding: 25px 20px;
+    border-radius: 12px;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 180px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--secondary);
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.8s ease both;
     position: relative;
     overflow: hidden;
-    opacity: 1 !important;
-    visibility: visible !important;
 }
 
 .detail-card::before {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(93, 140, 62, 0.2), transparent);
+    transition: left 0.5s ease;
 }
 
 .detail-card:hover::before {
-    opacity: 1;
+    left: 100%;
 }
 
 .detail-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 
-        0 15px 35px rgba(0, 0, 0, 0.3),
-        inset 0 1px 3px rgba(255, 255, 255, 0.6);
-    border-color: #6d5d4b;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
 }
 
+.detail-card:nth-child(1) { animation-delay: 1.7s; }
+.detail-card:nth-child(2) { animation-delay: 1.9s; }
+.detail-card:nth-child(3) { animation-delay: 2.1s; }
+
 .detail-icon {
-    font-size: 42px;
-    color: #4a3f35;
-    margin-bottom: 20px;
-    transition: all 0.3s ease;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    opacity: 1 !important;
-    visibility: visible !important;
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
 }
 
 .detail-card:hover .detail-icon {
-    transform: scale(1.1);
-    color: #8b7355;
+    transform: scale(1.2);
 }
 
 .detail-label {
-    font-family: 'Cinzel', serif;
-    font-size: 16px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
     font-weight: 700;
-    color: #4a3f35;
-    letter-spacing: 3px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     text-transform: uppercase;
-    position: relative;
-    padding-bottom: 8px;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-.detail-label::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 2px;
-    background: #8b7355;
+    letter-spacing: 1.5px;
 }
 
 .detail-value {
     font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    color: #4a3f35;
-    line-height: 1.5;
-    text-align: center;
-    opacity: 1 !important;
-    visibility: visible !important;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 .detail-value a {
-    color: #4a3f35;
+    color: var(--text-light);
     text-decoration: none;
-    transition: all 0.3s ease;
-    font-weight: 600;
+    transition: color 0.3s ease;
     position: relative;
-    padding: 5px 0;
 }
 
 .detail-value a::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -2px;
     left: 0;
     width: 0;
-    height: 1px;
-    background: #8b7355;
+    height: 2px;
+    background: var(--gold);
     transition: width 0.3s ease;
 }
 
 .detail-value a:hover {
-    color: #8b7355;
+    color: var(--gold);
 }
 
 .detail-value a:hover::after {
     width: 100%;
 }
 
-/* Responsive para detalles */
-@media (max-width: 768px) {
-    .details-container {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 0 10px;
-    }
-    
-    .detail-card {
-        padding: 25px 20px;
-        min-height: 160px;
-    }
-    
-    .detail-icon {
-        font-size: 36px;
-        margin-bottom: 15px;
-    }
-    
-    .detail-label {
-        font-size: 14px;
-        letter-spacing: 2px;
-    }
-    
-    .detail-value {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    .details-container {
-        gap: 15px;
-    }
-    
-    .detail-card {
-        padding: 20px 15px;
-        min-height: 140px;
-    }
-    
-    .detail-icon {
-        font-size: 32px;
-    }
-    
-    .detail-label {
-        font-size: 13px;
-        letter-spacing: 1px;
-    }
-    
-    .detail-value {
-        font-size: 15px;
-    }
-}
-/* Contador regresivo */
+/* CONTADOR REGRESIVO */
 .countdown-container {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin: 40px 0;
     flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease 2.3s both;
 }
 
 .countdown-item {
-    background: linear-gradient(135deg, #8b7355 0%, #a0856a 100%);
-    padding: 20px 25px;
-    border-radius: 12px;
-    min-width: 100px;
-    box-shadow: 
-        0 5px 15px rgba(0, 0, 0, 0.3),
-        inset 0 1px 2px rgba(255, 255, 255, 0.2);
-    border: 2px solid #6d5d4b;
+    background: linear-gradient(135deg, #1A3B2A 0%, #2D4D3A 50%, #3A5C45 100%);
+    padding: 20px 15px;
+    border-radius: 10px;
+    min-width: 80px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--secondary);
+    transition: transform 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+.countdown-item:hover {
+    transform: scale(1.05);
+    animation: none;
 }
 
 .countdown-number {
     display: block;
-    font-family: 'Cinzel', serif;
-    font-size: 36px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
     font-weight: 700;
-    color: #f5f0e8;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    color: var(--text-light);
 }
 
 .countdown-label {
     display: block;
     font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    color: #f5f0e8;
-    letter-spacing: 1px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-light);
     margin-top: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-/* Mensaje */
+/* MENSAJE */
 .message-section {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%);
-    padding: 30px;
-    border-radius: 15px;
+    background: linear-gradient(135deg, rgba(26, 59, 42, 0.8) 0%, rgba(45, 77, 58, 0.6) 100%);
+    padding: 25px;
+    border-radius: 12px;
     margin: 40px 0;
-    box-shadow: 
-        0 5px 15px rgba(0, 0, 0, 0.1),
-        inset 0 1px 2px rgba(255, 255, 255, 0.5);
-    border: 2px solid rgba(139, 115, 85, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(93, 140, 62, 0.3);
+    animation: fadeInUp 0.8s ease 2.5s both;
     position: relative;
-}
-
-.message-section::before,
-.message-section::after {
-    content: '"';
-    position: absolute;
-    font-family: 'Playfair Display', serif;
-    font-size: 60px;
-    color: rgba(139, 115, 85, 0.3);
-    font-weight: 700;
+    overflow: hidden;
 }
 
 .message-section::before {
+    content: '"';
+    position: absolute;
     top: 10px;
     left: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 60px;
+    color: rgba(93, 140, 62, 0.3);
+    font-weight: 700;
 }
 
 .message-section::after {
-    bottom: -10px;
+    content: '"';
+    position: absolute;
+    bottom: -15px;
     right: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 60px;
+    color: rgba(93, 140, 62, 0.3);
+    font-weight: 700;
 }
 
 .message-section p {
     font-family: 'Playfair Display', serif;
-    font-size: 18px;
+    font-size: 1.1rem;
     font-style: italic;
-    color: #4a3f35;
-    line-height: 1.8;
     text-align: center;
+    line-height: 1.7;
+    font-weight: 600;
     position: relative;
     z-index: 1;
 }
@@ -788,213 +657,515 @@ body.con-scroll {
 /* RSVP */
 .rsvp-section {
     text-align: center;
-    margin: 40px 0 60px;
-    position: relative;
-    z-index: 10;
+    margin: 40px 0;
+    animation: fadeInUp 0.8s ease 2.7s both;
 }
 
 .rsvp-title {
-    font-family: 'Cinzel', serif;
-    font-size: 24px;
-    font-weight: 600;
-    color: #4a3f35;
-    letter-spacing: 3px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
     margin-bottom: 25px;
+    color: var(--gold);
+    letter-spacing: 1.5px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .rsvp-button {
     display: inline-block;
-    padding: 18px 50px;
-    background: linear-gradient(135deg, #8b7355 0%, #a0856a 50%, #8b7355 100%);
-    color: #f5f0e8;
+    padding: 18px 40px;
+    background: linear-gradient(135deg, #1A3B2A 0%, #2D4D3A 50%, #3A5C45 100%);
+    color: var(--text-light);
     text-decoration: none;
     font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    border-radius: 50px;
-    box-shadow: 
-        0 8px 20px rgba(0, 0, 0, 0.3),
-        inset 0 1px 2px rgba(255, 255, 255, 0.3);
-    border: 2px solid #6d5d4b;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    border: 2px solid var(--gold);
     transition: all 0.3s ease;
+    letter-spacing: 1px;
     position: relative;
     overflow: hidden;
-    z-index: 15;
+    animation: pulse 2s infinite;
 }
 
 .rsvp-button::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
 }
 
 .rsvp-button:hover::before {
-    width: 300px;
-    height: 300px;
+    left: 100%;
 }
 
 .rsvp-button:hover {
     transform: translateY(-3px);
-    box-shadow: 
-        0 12px 30px rgba(0, 0, 0, 0.4),
-        inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    animation: none;
 }
 
 .rsvp-button:active {
     transform: translateY(-1px);
 }
 
-/* Footer */
+/* FOOTER */
 .footer {
     text-align: center;
     margin-top: 40px;
     padding-top: 20px;
-    border-top: 2px solid rgba(139, 115, 85, 0.3);
-    position: relative;
-    z-index: 5;
+    border-top: 1px solid rgba(93, 140, 62, 0.3);
+    animation: fadeInUp 0.8s ease 2.9s both;
 }
 
 .footer p {
     font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    color: #6d5d4b;
-    letter-spacing: 1px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-light);
 }
 
-/* Botón para cerrar */
+/* BOTÓN CERRAR */
 .close-button {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 12px 35px;
-    background: linear-gradient(135deg, #8b7355 0%, #a0856a 100%);
-    color: #f5f0e8;
+    display: block;
+    margin: 30px auto 0;
+    padding: 14px 35px;
+    background: linear-gradient(135deg, #1A3B2A 0%, #2D4D3A 50%, #3A5C45 100%);
+    color: var(--text-light);
     border: none;
     border-radius: 25px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    z-index: 20;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    border: 2px solid var(--secondary);
+    animation: fadeInUp 0.8s ease 3.1s both;
 }
 
 .close-button:hover {
-    transform: translateX(-50%) translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+    color: var(--gold);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Instrucción */
-.instruccion {
+/* INSTRUCCIÓN */
+.instruction {
     position: fixed;
     bottom: 20px;
     left: 0;
     width: 100%;
     text-align: center;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    color: var(--text-light);
     z-index: 100;
     pointer-events: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    padding: 0 15px;
+    animation: fadeInUp 1s ease 3.3s both;
 }
 
-/* Responsive */
+/* ========== RESPONSIVIDAD COMPLETA ========== */
+
+/* Tabletas */
 @media (max-width: 768px) {
+    /* CARTA CERRADA */
     .envelope {
-        height: 500px;
+        height: 480px;
     }
-
-    .invitation-card {
-        padding: 40px 25px;
+    
+    .sealed-letter {
+        padding: 25px 20px;
     }
-
-    .company-name {
-        font-size: 36px;
-        letter-spacing: 4px;
-    }
-
-    .seal {
-        width: 80px;
-        height: 80px;
-        font-size: 22px;
-        top: 20px;
-        right: 20px;
-    }
-
-    .celebration-title {
-        font-size: 32px;
-    }
-
-    .anniversary-text {
-        font-size: 24px;
-    }
-
-    .details-container {
-        grid-template-columns: 1fr;
-    }
-
-    .countdown-item {
-        min-width: 80px;
-        padding: 15px 20px;
-    }
-
-    .countdown-number {
-        font-size: 28px;
-    }
-
-    .message-section p {
-        font-size: 16px;
-    }
-
+    
     .seal-stamp {
         width: 120px;
         height: 120px;
+        font-size: 16px;
+        margin: 5px auto 15px auto;
+    }
+    
+    .seal-icon {
+        font-size: 28px;
+    }
+    
+    .seal-text {
         font-size: 14px;
-        right: 40px;
+    }
+    
+    .envelope-text h1 {
+        font-size: 2rem;
+    }
+    
+    .envelope-text .subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .text-box {
+        padding: 18px 12px;
+        margin: 12px auto;
+        max-width: 450px;
+    }
+    
+    .text-box .company-logo {
+        max-width: 300px;
+    }
+    
+    .text-box p {
+        font-size: 0.9rem;
+    }
+    
+    /* CARTA ABIERTA */
+    .ribbon-logo {
+        max-width: 550px;
+    }
+    
+    .company-name {
+        font-size: 2.4rem;
+    }
+    
+    .tagline {
+        font-size: 1.1rem;
+    }
+    
+    .celebration-title {
+        font-size: 1.9rem;
+    }
+    
+    .anniversary-text {
+        font-size: 1.7rem;
+    }
+    
+    .details-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .countdown-item {
+        min-width: 70px;
+        padding: 15px 10px;
+    }
+    
+    .countdown-number {
+        font-size: 1.9rem;
+    }
+    
+    .rsvp-button {
+        padding: 16px 35px;
+        font-size: 1rem;
+    }
+}
+
+/* Teléfonos móviles */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    /* CARTA CERRADA */
+    .envelope {
+        height: 420px;
+    }
+    
+    .sealed-letter {
+        padding: 20px 15px;
+    }
+    
+    .seal-stamp {
+        width: 100px;
+        height: 100px;
+        font-size: 14px;
+        margin: 0 auto 12px auto;
+    }
+    
+    .seal-icon {
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+    
+    .seal-text {
+        font-size: 12px;
+        line-height: 1.2;
+    }
+    
+    .envelope-text h1 {
+        font-size: 1.7rem;
+        margin-bottom: 5px;
+    }
+    
+    .envelope-text .subtitle {
+        font-size: 1rem;
+        letter-spacing: 1.5px;
+    }
+    
+    .text-box {
+        padding: 15px 10px;
+        margin: 10px auto;
+        max-width: 380px;
+        gap: 8px;
+    }
+    
+    .text-box .company-logo {
+        max-width: 250px;
+        margin-bottom: 8px;
+    }
+    
+    .text-box p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+    
+    .text-box p:last-of-type {
+        font-size: 0.8rem;
+    }
+    
+    /* CARTA ABIERTA */
+    .invitation-card {
+        padding: 30px 20px;
+    }
+    
+    .ribbon {
+        padding: 20px 40px;
+    }
+    
+    .ribbon-logo {
+        max-width: 350px;
+    }
+    
+    .company-name {
+        font-size: 2rem;
+    }
+    
+    .tagline {
+        font-size: 1rem;
+    }
+    
+    .celebration-title {
+        font-size: 1.6rem;
+    }
+    
+    .image-container {
+        padding: 12px;
+    }
+    
+    .anniversary-text {
+        font-size: 1.5rem;
+    }
+    
+    .detail-card {
+        padding: 20px 15px;
+    }
+    
+    .detail-icon {
+        font-size: 2rem;
+    }
+    
+    .detail-label {
+        font-size: 1rem;
+    }
+    
+    .detail-value {
+        font-size: 0.9rem;
+    }
+    
+    .countdown-container {
+        gap: 10px;
+    }
+    
+    .countdown-item {
+        min-width: 65px;
+        padding: 12px 8px;
+    }
+    
+    .countdown-number {
+        font-size: 1.7rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.8rem;
+    }
+    
+    .message-section {
+        padding: 20px;
+    }
+    
+    .message-section p {
+        font-size: 1rem;
+    }
+    
+    .rsvp-title {
+        font-size: 1.5rem;
+    }
+    
+    .rsvp-button {
+        padding: 14px 30px;
+        font-size: 0.95rem;
+    }
+    
+    .close-button {
+        padding: 12px 30px;
+        font-size: 0.95rem;
+    }
+    
+    .instruction {
+        font-size: 0.9rem;
+    }
+}
+
+/* Teléfonos muy pequeños */
+@media (max-width: 360px) {
+    /* CARTA CERRADA */
+    .envelope {
+        height: 400px;
+    }
+    
+    .sealed-letter {
+        padding: 15px 10px;
+    }
+    
+    .seal-stamp {
+        width: 90px;
+        height: 90px;
+        font-size: 12px;
+    }
+    
+    .seal-icon {
+        font-size: 22px;
+    }
+    
+    .envelope-text h1 {
+        font-size: 1.5rem;
+    }
+    
+    .envelope-text .subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .text-box {
+        padding: 12px 8px;
+        max-width: 320px;
+    }
+    
+    .text-box .company-logo {
+        max-width: 220px;
+    }
+    
+    .text-box p {
+        font-size: 0.8rem;
+    }
+    
+    /* CARTA ABIERTA */
+    .ribbon-logo {
+        max-width: 280px;
+    }
+    
+    .company-name {
+        font-size: 1.8rem;
+    }
+    
+    .celebration-title {
+        font-size: 1.4rem;
+    }
+    
+    .anniversary-text {
+        font-size: 1.3rem;
+    }
+    
+    .countdown-item {
+        min-width: 60px;
+        padding: 10px 6px;
+    }
+    
+    .countdown-number {
+        font-size: 1.5rem;
+    }
+    
+    .rsvp-button {
+        padding: 12px 25px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Orientación horizontal en móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        padding: 10px;
+        align-items: flex-start;
+    }
+    
+    /* CARTA CERRADA */
+    .envelope {
+        height: 320px;
+        margin: 5px 0;
+    }
+    
+    .sealed-letter {
+        padding: 15px 20px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 10px;
+    }
+    
+    .seal-stamp {
+        width: 80px;
+        height: 80px;
+        margin: 0;
+        order: 1;
+        flex: 0 0 auto;
+    }
+    
+    .envelope-text {
+        margin: 0;
+        order: 2;
+        flex: 1;
+        min-width: 200px;
+    }
+    
+    .text-box {
+        order: 3;
+        flex: 2 1 100%;
+        margin: 5px auto;
+        padding: 10px 15px;
+        max-width: 90%;
+    }
+    
+    .text-box .company-logo {
+        max-width: 200px;
+        margin-bottom: 5px;
+    }
+    
+    /* CARTA ABIERTA */
+    .invitation-card {
+        padding: 25px 20px;
+    }
+    
+    .card-header {
+        margin-bottom: 20px;
+    }
+    
+    .celebration-section {
+        margin: 25px 0;
+    }
+    
+    .details-container {
+        margin: 25px 0;
+    }
+    
+    .message-section {
+        margin: 25px 0;
     }
     
     .rsvp-section {
-        margin: 40px 0 80px;
+        margin: 25px 0;
     }
-
-    /* Asegurar que la carta siempre sea visible al cargar */
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    scroll-behavior: smooth;
-}
-
-/* Prevenir que el contenido se desplace fuera de vista */
-.invitation-container {
-    position: relative;
-    z-index: 10;
-}
-
-/* Asegurar que el body ocupe toda la altura visible */
-html, body {
-    height: 100%;
-    min-height: 100vh;
-}
-
-/* Contenedor principal centrado */
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-}
-
-
 }
