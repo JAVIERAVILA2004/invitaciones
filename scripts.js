@@ -48,4 +48,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Prevenir zoom en inputs en iOS
     document.addEventListener('touchstart', function() {}, {passive: true});
+
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+
+    const pname = document.getElementById('nombre_invitacion');
+    if(name) {
+        pname.textContent = name;
+    }
+    
 });
+
