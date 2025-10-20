@@ -1169,3 +1169,8 @@ body {
         margin: 25px 0;
     }
 }
+
+#nombre_invitacion {
+    font-weight: 500;
+    font-size: 1.1em;
+}
